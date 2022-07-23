@@ -1,0 +1,11 @@
+verilogparse.tab.c verilogparse.tab.h : verilogparse.y
+	bison -d verilogparse.y
+
+lex.yy.c : veriloglex.l
+	flex -i veriloglex.l
+
+all : verilog2vhdl.h verilog2vhdl.c verilogparse.tab.c lex.yy.c verilogparse.tab.h
+	bcc32 verilog2vhdl.c verilogparse.tab.c lex.yy.c
+
+clean :
+	rm -f lex.yy.c verilogparse.tab.c verilogparse.tab.h verilog2vhdl.exe *.obj *.tds
